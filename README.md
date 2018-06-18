@@ -28,9 +28,10 @@ exports.lambda_handler = async function(event, context) {
 ```
 
 Create publish lambda function:
+(execute from root of repo)
 ```
 awslocal lambda delete-function --function-name=Publisher
-zip -r Publisher.zip .
+cd ./publisher/ && zip -r Publisher.zip .
 awslocal lambda create-function --function-name=Publisher --runtime=nodejs8.10 --role=arn:aws:iam:local --handler=index.lambda_handler --zip-file=fileb://Publisher.zip
 ```
 ---
@@ -44,9 +45,10 @@ exports.lambda_handler = function(event, context) {
 ```
 
 Create consumer lambda function:
+(execute from root of repo)
 ```
 awslocal lambda delete-function --function-name=Consumer
-zip -r Consumer.zip .
+cd ./consumer/ && zip -r Consumer.zip .
 awslocal lambda create-function --function-name=Consumer --runtime=nodejs8.10 --role=arn:aws:iam:local --handler=index.lambda_handler --zip-file=fileb://Consumer.zip
 ```
 ---
