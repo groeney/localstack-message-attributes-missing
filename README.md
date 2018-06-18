@@ -29,6 +29,7 @@ exports.lambda_handler = async function(event, context) {
 
 Create publish lambda function:
 ```
+awslocal lambda delete-function --function-name=Publisher
 zip -r Publisher.zip .
 awslocal lambda create-function --function-name=Publisher --runtime=nodejs8.10 --role=arn:aws:iam:local --handler=index.lambda_handler --zip-file=fileb://Publisher.zip
 ```
@@ -44,6 +45,7 @@ exports.lambda_handler = function(event, context) {
 
 Create consumer lambda function:
 ```
+awslocal lambda delete-function --function-name=Consumer
 zip -r Consumer.zip .
 awslocal lambda create-function --function-name=Consumer --runtime=nodejs8.10 --role=arn:aws:iam:local --handler=index.lambda_handler --zip-file=fileb://Consumer.zip
 ```
@@ -51,8 +53,9 @@ awslocal lambda create-function --function-name=Consumer --runtime=nodejs8.10 --
 
 Subscribe consumer to sns topic:
 
+```
 awslocal sns subscribe --topic-arn arn:aws:sns:us-east-1:123456789012:events --protocol lambda --notification-endpoint arn:aws:lambda:us-west-2:000000000000:function:Consumer
-
+```
 ---
 
 Invoke Publisher:

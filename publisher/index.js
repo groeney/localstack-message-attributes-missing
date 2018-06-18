@@ -1,6 +1,9 @@
 console.log("Loading function publisher...");
+console.log(JSON.stringify(process.env));
+const AWS = require("aws-sdk");
 const sns = new AWS.SNS({ endpoint: `http://${process.env.LOCALSTACK_HOSTNAME}:4575` });
-exports.lambda_handler = async function(event, context) {
+
+exports.lambda_handler = function(event, context) {
   const params = {
     TopicArn: "arn:aws:sns:us-east-1:123456789012:events",
     Subject: "Subject",
